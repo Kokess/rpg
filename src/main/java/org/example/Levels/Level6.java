@@ -26,6 +26,7 @@ public class Level6 extends Level{
         isFinish = false;
         round = 0;
         this.availableWorldItem = new ArrayList<Item>();
+        runSystemAttack = true;
     }
 
     @Override
@@ -47,11 +48,14 @@ public class Level6 extends Level{
     @Override
     public void attackEnemySystem() {
         this.json.read(this.jsonPath,"fightBegin");
-        while(!this.enemyList.isEmpty()){
+        while(runSystemAttack){
             wizardStats(this.wizard);
             enemyStats(this.enemyList);
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
+            checkWizardLife();
+            checkEnemyList();
+
         }
     }
 

@@ -5,6 +5,7 @@ import org.example.Characters.Player.Wizard;
 import org.example.Console.UserInteraction;
 import org.example.Dialogues.JsonRead;
 import org.example.Items.Item;
+import org.example.Items.objects.FireWork;
 import org.example.Items.weapon.Wand;
 import org.example.Items.weapon.Core;
 import org.example.Spells.Petrificus;
@@ -17,6 +18,7 @@ public class Level5 extends Level{
     private String jsonPath;
     private Wand doloresWand;
     private Enemy dolores;
+    private FireWork fireWork = new FireWork(this.enemyList);
     public Level5(String name,Wizard wizard){
         this.name = name;
         this.wizard = wizard;
@@ -24,12 +26,13 @@ public class Level5 extends Level{
         this.jsonPath = "src/main/java/org/example/Dialogues/scriptLevel5.json";
         this.enemyList = new ArrayList<Enemy>();
         this.doloresWand = new Wand(22,Core.ONE.name());
-        this.dolores = new Enemy("Dolores",doloresWand,150,100,5);
+        this.dolores = new Enemy("Dolores",doloresWand,500,100,5);
         this.enemyList.add(dolores);
         this.isFinish = false;
         this.availableWorldItem = new ArrayList<Item>();
         this.userInteraction = new UserInteraction();
         this.round =0;
+
     }
     @Override
     public void play() {
@@ -50,11 +53,18 @@ public class Level5 extends Level{
     @Override
     public void attackEnemySystem() {
         json.read(jsonPath,"fightBegin");
-        while(!this.enemyList.isEmpty()){
+        while(runSystemAttack){
             wizardStats(this.wizard);
             enemyStats(this.enemyList);
             userInteraction.actionChoiceEnemy(wizard.getInventory(),wizard.getSpellList(),wizard,enemyList,availableWorldItem,round);
             round +=1;
+            if(this.round == 8){
+                availableWorldItem.add(fireWork);
+                userInteraction.print("Les feux d'artifices sont là! Utilisez Accio pour les attirer et les utiliser!");
+            }
+            checkWizardLife();
+            checkEnemyList();
+
         }
 
     }

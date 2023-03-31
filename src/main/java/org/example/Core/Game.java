@@ -165,7 +165,7 @@ public class Game {
                 market.play();
                 level7.play();
             }
-            System.out.println("Vous êtes mort! Game Over");
+            System.out.println("Vous êtes mort!");
         }
     }
 }

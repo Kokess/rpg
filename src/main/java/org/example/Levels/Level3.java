@@ -33,6 +33,7 @@ public class Level3 extends Level{
         this.enemyList.add(dementor_1);this.enemyList.add(dementor_2);this.enemyList.add(dementor_3);
         this.isFinish = false;
         this.round =0;
+        runSystemAttack = true;
     }
 
     @Override
@@ -40,6 +41,7 @@ public class Level3 extends Level{
         while(!isFinish){
             introduction();
             attackEnemySystem();
+            setEnd();
         }
 
 
@@ -56,14 +58,16 @@ public class Level3 extends Level{
     public void attackEnemySystem() {
         this.json.read(this.jsonPath,"fightBegin");
         this.json.read(this.jsonPath,"enemyDescription");
-        while(!this.enemyList.isEmpty()){
+        while(runSystemAttack){
             wizardStats(this.wizard);
             enemyStats(this.enemyList);
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
+            checkWizardLife();
+            checkEnemyList();
         }
         this.json.read(this.jsonPath,"endFight");
-        setEnd();
+
     }
 
     @Override

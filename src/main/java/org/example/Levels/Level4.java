@@ -34,6 +34,7 @@ public class Level4 extends Level{
         this.availableWorldItem = new ArrayList<Item>();
         Portkey portkey = new Portkey(this.enemyList);
         this.availableWorldItem.add(portkey);
+        runSystemAttack = true;
     }
 
     @Override
@@ -57,13 +58,14 @@ public class Level4 extends Level{
     @Override
     public void attackEnemySystem() {
         this.json.read(this.jsonPath,"fightBegin");
-        while(!this.enemyList.isEmpty()){
+        while(runSystemAttack){
             wizardStats(this.wizard);
             enemyStats(this.enemyList);
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
         }
-
+        checkWizardLife();
+        checkEnemyList();
     }
     @Override
     public void attackBossSystem() {
