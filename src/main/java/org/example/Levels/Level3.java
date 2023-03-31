@@ -63,8 +63,8 @@ public class Level3 extends Level{
             enemyStats(this.enemyList);
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
-            checkWizardLife();
-            checkEnemyList();
+            checkWizardLife(this.wizard);
+            checkEnemyList(this.enemyList);
         }
         this.json.read(this.jsonPath,"endFight");
 

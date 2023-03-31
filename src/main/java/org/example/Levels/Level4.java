@@ -42,7 +42,13 @@ public class Level4 extends Level{
         while(!isFinish){
             introduction();
             attackEnemySystem();
-            setEnd();
+            if(this.wizard.isAlive()){
+                setEnd();
+            }
+            else{
+                isFinish =true;
+            }
+
         }
 
     }
@@ -64,8 +70,8 @@ public class Level4 extends Level{
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
         }
-        checkWizardLife();
-        checkEnemyList();
+        checkWizardLife(this.wizard);
+        checkEnemyList(this.enemyList);
     }
     @Override
     public void attackBossSystem() {

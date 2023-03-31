@@ -16,6 +16,10 @@ public abstract class AbstractSpell {
     protected int successRate = 80;
     public boolean getMakeDamage(){return this.makeDamage;}
     public void setDamage(int damage){this.damage = damage;}
+
+    public void addDamage(int damage){
+        this.damage +=5;
+    }
     public int getDamage(){return this.damage;}
 
     public String getName(){return this.name;}

@@ -33,7 +33,7 @@ public class Enemy extends AbstractEnemy {
         this.defense = defense;
         this.spellList = spellList;
         this.isWizard = true;
-        this.spellList = new HashMap<String, AuthorizedSpell>();
+        this.spellList = new HashMap<String, AbstractSpell>();
         BasicAttack basicAttack = new BasicAttack("Attaque basique",true);
         Petrificus petrificus = new Petrificus();
         Sectumsempra sectumsempra = new Sectumsempra();
@@ -97,8 +97,12 @@ public class Enemy extends AbstractEnemy {
         }
     }
 
-    public HashMap<String, AuthorizedSpell> getSpellList(){
+    public HashMap<String, AbstractSpell> getSpellList(){
         return this.spellList;
+    }
+
+    public void addSpell(AbstractSpell spell){
+        this.spellList.put(spell.getName(),spell);
     }
     public boolean getIsWizard(){
         return this.isWizard;

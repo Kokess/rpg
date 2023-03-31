@@ -39,7 +39,12 @@ public class Level5 extends Level{
         while(!isFinish){
             introduction();
             attackEnemySystem();
-            setEnd();
+            if(this.wizard.isAlive()){
+                setEnd();
+            }
+            else{
+                isFinish = true;
+            }
         }
     }
 
@@ -62,8 +67,8 @@ public class Level5 extends Level{
                 availableWorldItem.add(fireWork);
                 userInteraction.print("Les feux d'artifices sont là! Utilisez Accio pour les attirer et les utiliser!");
             }
-            checkWizardLife();
-            checkEnemyList();
+            checkWizardLife(this.wizard);
+            checkEnemyList(this.enemyList);
 
         }
 

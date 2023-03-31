@@ -15,7 +15,7 @@ import java.util.HashMap;
 public abstract class AbstractEnemy extends Character {
     protected Weapon weapon;
     protected int goldValue;
-    protected HashMap<String, AuthorizedSpell> spellList;
+    protected HashMap<String, AbstractSpell> spellList;
     protected boolean isWizard;
     protected Wand wand;
     public Weapon getWeapon(){

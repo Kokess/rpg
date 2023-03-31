@@ -10,11 +10,12 @@ public class WingardiumLeviosa extends AuthorizedSpell {
         this.name = name;
         this.makeDamage = makeDamage; //savoir si c'est un sort qui fait des dégats.
         this.interactWithItem = false;
+        this.damage =40;
     }
 
     public void fly(Character character, int defense){
         System.out.println("Vous faites voler une pierre et la faîte tomber sur l'ennemie! Vous infliger 40 points de dégâts à l'ennemie!");
-        character.take_dmg(40,defense);
+        character.take_dmg(this.damage,defense);
     }
 
     @Override

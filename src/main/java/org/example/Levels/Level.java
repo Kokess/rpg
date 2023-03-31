@@ -56,12 +56,12 @@ public abstract class Level {
             System.out.print("\u001B[31m" + enemyList.get(i).getName() +"("+enemyList.get(i).getLife()+"❤️ | " + enemyList.get(i).getDefense() + "🛡️) " + ", " + "\u001B[0m" );
         }
     }
-public void checkWizardLife(){
+public void checkWizardLife(Wizard wizard){
     if(!wizard.isAlive()){
         runSystemAttack = false;
     }
 }
-public void checkEnemyList(){
+public void checkEnemyList(ArrayList<Enemy> enemyList){
     if(enemyList.isEmpty()){
         runSystemAttack = false;
     }

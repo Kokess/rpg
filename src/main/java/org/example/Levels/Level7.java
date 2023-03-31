@@ -6,6 +6,7 @@ import org.example.Dialogues.JsonRead;
 import org.example.Items.Item;
 import org.example.Items.weapon.Core;
 import org.example.Items.weapon.Wand;
+import org.example.Spells.AvadaKedavra;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class Level7 extends Level{
         this.availableWorldItem = new ArrayList<Item>();
         isFinish = false;
         runSystemAttack = true;
+        AvadaKedavra avadaKedavra = new AvadaKedavra();
+        voldemort.addSpell(avadaKedavra);
     }
 
     @Override
@@ -35,7 +38,12 @@ public class Level7 extends Level{
         while(!isFinish){
             introduction();
             attackEnemySystem();
-            setEnd();
+            if(this.wizard.isAlive()){
+                setEnd();
+            }
+            else{
+                isFinish = true;
+            }
         }
 
     }
@@ -54,8 +62,8 @@ public class Level7 extends Level{
             enemyStats(this.enemyList);
             this.userInteraction.actionChoiceEnemy(this.wizard.getInventory(),this.wizard.getSpellList(),this.wizard,this.enemyList,this.availableWorldItem,this.round);
             this.round +=1;
-            checkEnemyList();
-            checkWizardLife();
+            checkWizardLife(this.wizard);
+            checkEnemyList(this.enemyList);
         }
 
     }

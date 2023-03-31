@@ -15,4 +15,11 @@ public abstract class AuthorizedSpell extends AbstractSpell{
     public void textFailedSpell(){
         this.userInteraction.print("\u001B[33m" + "❌ Votre sort a échoué" + "\u001B[0m");
     }
+
+    public void addSuccessPercentage(int value){
+        this.successPercentage +=5;
+    }
+    public void setSuccessPercentage(int value){
+        this.successPercentage = value;
+    }
 }

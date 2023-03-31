@@ -9,6 +9,7 @@ import org.example.Items.consumable.Potion;
 import org.example.Items.weapon.Wand;
 import org.example.Items.weapon.Core;
 import org.example.Levels.*;
+import org.example.Spells.AbstractSpell;
 
 import java.util.ArrayList;;
 
@@ -137,7 +138,7 @@ public class Game {
                 //TODO faire buff attaque
                 break;
             case "Ravenclaw":
-                wizard.setSuccessAttackRate(85);
+                wizard.setSuccessAttackRate(90);
                 break;
             case "Hufflepuff":
                 //TODO faire buff potion
@@ -150,22 +151,34 @@ public class Game {
             initialization();
             playerCreation();
             levelInitialization();
-            while(player.isAlive()){
-                level1.play();
-                //market.play();
-                //level2.play();
-                //market.play();
-                //level3.play();
-                market.play();
-                level4.play();
-                market.play();
-                level5.play();
-                market.play();
-                level6.play();
-                market.play();
-                level7.play();
+            level1.play();
+            checkPlayerLife();
+            market.play();
+            level2.play();
+            checkPlayerLife();
+            market.play();
+            level3.play();
+            checkPlayerLife();
+            market.play();
+            level4.play();
+            checkPlayerLife();
+            market.play();
+            level5.play();
+            checkPlayerLife();
+            market.play();
+            level6.play();
+            checkPlayerLife();
+            market.play();
+            level7.play();
+            checkPlayerLife();
+        }
+    }
+
+    public void checkPlayerLife(){
+        if(!this.player.isAlive()){
+            while(true){
+                System.out.println("Game over! Vous êtes mort");
             }
-            System.out.println("Vous êtes mort!");
         }
     }
 }

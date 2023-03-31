@@ -9,6 +9,7 @@ public class AvadaKedavra extends ForbiddenSpell{
     public AvadaKedavra(){
         this.name = "Avada Kedavra";
         this.makeDamage = true;
+        this.successRate =20;
     }
     @Override
     public void action(Character character) {
