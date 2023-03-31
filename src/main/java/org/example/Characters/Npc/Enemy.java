@@ -1,0 +1,106 @@
+package org.example.Characters.Npc;
+
+import org.example.Characters.Character;
+import org.example.Characters.Player.Wizard;
+import org.example.Console.TextColor;
+import org.example.Items.weapon.Wand;
+import org.example.Items.weapon.Weapon;
+import org.example.Spells.*;
+
+import java.util.HashMap;
+import java.util.Random;
+
+public class Enemy extends AbstractEnemy {
+    public Enemy(String name, Weapon weapon,int life,int goldValue,int defense){
+        this.name = name;
+        this.weapon = weapon;
+        this.life = life;
+        this.red = new TextColor();
+        this.red.setRed();
+        this.white = new TextColor();
+        this.white.setWhite();
+        this.green = new TextColor();
+        this.green.setGreen();
+        this.goldValue = goldValue;
+        this.defense = defense;
+        this.isWizard = false;
+    }
+    public Enemy(String name, Wand wand, int life, int goldValue, int defense){
+        this.name = name;
+        this.wand = wand;
+        this.life = life;
+        this.goldValue = goldValue;
+        this.defense = defense;
+        this.spellList = spellList;
+        this.isWizard = true;
+        this.spellList = new HashMap<String, AuthorizedSpell>();
+        BasicAttack basicAttack = new BasicAttack("Attaque basique",true);
+        Petrificus petrificus = new Petrificus();
+        Sectumsempra sectumsempra = new Sectumsempra();
+        Incendio incendio = new Incendio();
+        this.spellList.put("Basic attack",basicAttack);
+        this.spellList.put("Petrificus",petrificus);
+        this.spellList.put("Sectumsempra",sectumsempra);
+        this.spellList.put("Incendio",incendio);
+        this.canPlay = true;
+    }
+
+    @Override
+    public void take_dmg(int damage,int defense){
+        this.life -=(damage - ((defense * damage))/100);
+    }
+    @Override
+    public void attack(Character character,int damage,int defense,int successAttackRate){
+        Random r = new Random();
+        if(this.canPlay){
+            if(r.nextInt(100 ) >= 100 - successAttackRate){  //l'attaque échoue à (100 - succcessAttackRate)%
+                System.out.println(r.nextInt());
+                character.take_dmg(damage,defense);
+                System.out.println(this.red.getColorCode() + "⚔️ L'ennemie " + this.name+ " vous a infligé " +  damage + " points de dégâts ⚔️" + this.white.getColorCode());
+            }
+            else{
+                System.out.println("\u001B[33m" + "❌ L'attaque de l'ennemie a échoué!" + "\u001B[0m");
+            }
+        }
+        else{
+            System.out.println("L'ennemie "+this.name + " ne peut pas attaquer!");
+        }
+
+    }
+
+    public AbstractSpell randomEnemyWizardSpell(){
+        Random rSpell = new Random();
+        int numberSpell = rSpell.nextInt(this.spellList.size());
+        AbstractSpell currentSpell = this.spellList.get(spellList.keySet().toArray()[numberSpell].toString());
+        return currentSpell;
+    }
+    public void enemyWizardAttack(Wizard wizard,AbstractSpell spell){
+        Random r = new Random();
+        Random rSpell = new Random();
+        AbstractSpell currentSpell = spell;
+        if(this.canPlay){
+            if(r.nextInt(100) >=100 - currentSpell.getSuccessRate()){
+                if(currentSpell.getName() == "Attaque basique"){
+                    wizard.take_dmg(20,wizard.getDefense());
+                    System.out.println(this.name + " Vous a infligé 20 points de dégâts");
+                }
+                else{
+                    currentSpell.actionOnCharacter(wizard);
+                }
+            }
+            else{
+                System.out.println("Le sort de " + this.name + " a echoué!");
+            }
+        }
+        else{
+            System.out.println("Le sorcier ennemie " + this.name +" ne peut pas attaquer!");
+        }
+    }
+
+    public HashMap<String, AuthorizedSpell> getSpellList(){
+        return this.spellList;
+    }
+    public boolean getIsWizard(){
+        return this.isWizard;
+    }
+}
